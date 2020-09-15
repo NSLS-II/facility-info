@@ -16,6 +16,11 @@ def test_user_visits():
     a = response.json()
     assert a['proposals'][0] == '12345'
 
+def test_get_visits():
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/expt_session/visits_for_proposal/12345')
+    a = response.json()
+    assert len(a['visits']) == 5
+
 def test_visit_times():
     response = requests.get(f'http://{HOSTNAME}:{PORT}/expt_session/times/12345/1')
     a = response.json()

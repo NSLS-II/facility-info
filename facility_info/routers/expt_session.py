@@ -23,6 +23,14 @@ def test():
 def get_user_proposals(username):
     return {'proposals':user_proposals.get(username, None)}
 
+@router.get("/visits_for_proposal/{proposal}")
+def get_visits_for_proposal(proposal: int):
+    visits_for_proposal = set()
+    for visit_str, times in visits[str(proposal)].items():
+        visits_for_proposal.add(int(visit_str))
+    print(visits_for_proposal)
+    return {'visits': list(visits_for_proposal)}
+
 @router.get("/times/{current_proposal}/{current_visit}")
 def get_visit_times(current_proposal, current_visit):
     return visits.get(current_proposal, None).get(current_visit, None)
