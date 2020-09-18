@@ -6,13 +6,13 @@ HOSTNAME = 'localhost'
 PORT = 6942
 
 def test_user_info():
-    response = requests.get(f'http://{HOSTNAME}:{PORT}/user_info/jdoe')
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/user/jdoe')
     a = response.json()
     assert a['username'] == 'jdoe'
     assert a['globus_email'] == 'jdoe@bnl.gov'
 
 def test_all_users():
-    response = requests.get(f'http://{HOSTNAME}:{PORT}/user_info')
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/users')
     a = response.json()
     assert a['users'] == ['jdoe']
 
