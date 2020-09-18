@@ -11,42 +11,42 @@ def test_user_info():
     assert a['username'] == 'jdoe'
     assert a['globus_email'] == 'jdoe@bnl.gov'
 
-def test_user_visits():
-    response = requests.get(f'http://{HOSTNAME}:{PORT}/expt_session/user_proposals/jdoe')
+def test_user_experiments():
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/experiment/user_proposals/jdoe')
     a = response.json()
     assert a['proposals'][0] == '12345'
 
-def test_get_visits():
-    response = requests.get(f'http://{HOSTNAME}:{PORT}/expt_session/visits_for_proposal/12345')
+def test_get_experiments():
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/experiment/experiments_for_proposal/12345')
     a = response.json()
-    assert len(a['visits']) == 5
+    assert len(a['experiments']) == 5
 
-def test_visit_times():
-    response = requests.get(f'http://{HOSTNAME}:{PORT}/expt_session/times/12345/1')
+def test_experiment_times():
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/experiment/times/12345/1')
     a = response.json()
     assert a['start_time'] == datetime.datetime(2020,11,1,9,0,0).isoformat('T')
     assert a['end_time'] == datetime.datetime(2020,11,2,8,59,0).isoformat('T')
 
-def test_begin_session():
-    response = requests.put(f'http://{HOSTNAME}:{PORT}/expt_session/visit/13579/1')
+def test_begin_experiment():
+    response = requests.put(f'http://{HOSTNAME}:{PORT}/experiment/experiment/13579/1')
 
-def test_end_session():
-    response = requests.get(f'http://{HOSTNAME}:{PORT}/expt_session/visit')
+def test_end_experiment():
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/experiment/experiment')
     a = response.json()
     assert a['proposal'] == '13579'
-    assert a['visit'] == '1'
+    assert a['experiment'] == '1'
 
-def test_begin_session_again():
-    response = requests.put(f'http://{HOSTNAME}:{PORT}/expt_session/visit/12345/1')
+def test_begin_experiment_again():
+    response = requests.put(f'http://{HOSTNAME}:{PORT}/experiment/experiment/12345/1')
 
-def test_end_session():
-    response = requests.get(f'http://{HOSTNAME}:{PORT}/expt_session/visit')
+def test_end_experiment():
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/experiment/experiment')
     a = response.json()
     assert a['proposal'] == '12345'
-    assert a['visit'] == '1'
+    assert a['experiment'] == '1'
 
 def test_get_users():
-    response = requests.get(f'http://{HOSTNAME}:{PORT}/expt_session/users/12345')
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/experiment/users/12345')
     a = response.json()
     print(a)
     assert a['users'] == ['jdoe']
