@@ -6,7 +6,10 @@ experiment = None
 
 router = APIRouter()
 
-proposals = {'12345':{'users':['jdoe']}, '45678':{'users':['jdoe']}, '78901':{'users':['jdoe']}}
+#TODO consolidate with proposals dictionary in proposal
+proposals = {'12345':{'users':['jdoe'], 'prefix':'gu', 'full_name':'gu12345'},
+             '45678':{'users':['jdoe'], 'prefix':'gu', 'full_name':'gu45678'},
+             '78901':{'users':['jdoe'], 'prefix':'gu', 'full_name':'gu78901'}}
 experiments = {'12345':{'1':{'start_time':datetime.datetime(2020,11,1,9,0,0), 'end_time':datetime.datetime(2020,11,2,8,59,0)},
                    '2':{'start_time':datetime.datetime(2020,11,2,9,0,0), 'end_time':datetime.datetime(2020,11,3,8,59,0)},
                    '3':{'start_time':datetime.datetime(2020,11,3,9,0,0), 'end_time':datetime.datetime(2020,11,4,8,59,0)},

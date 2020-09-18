@@ -1,6 +1,6 @@
 from fastapi import Depends, FastAPI, Header, HTTPException
 
-from .routers import user, users, experiments
+from .routers import user, users, experiments, proposal
 
 app = FastAPI(
     title="UserInformation HTTP Server",
@@ -22,6 +22,12 @@ app.include_router(experiments.router,
 app.include_router(users.router,
     prefix='/users',
     tags=['users'],
+    responses={404: {"description": "Not found"}}
+)
+
+app.include_router(proposal.router,
+    prefix='/proposal',
+    tags=['proposal'],
     responses={404: {"description": "Not found"}}
 )
 

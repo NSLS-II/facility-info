@@ -57,3 +57,13 @@ def test_get_users():
     response = requests.get(f'http://{HOSTNAME}:{PORT}/experiments/users/12345')
     a = response.json()
     assert a['users'] == ['jdoe']
+
+def test_get_proposals():
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/proposal')
+    a = response.json()
+    assert len(a['proposals']) == 3
+
+def test_get_proposal():
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/proposal/12345')
+    a = response.json()
+    assert a['proposal']['full_name'] == 'gu12345'
