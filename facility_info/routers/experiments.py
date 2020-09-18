@@ -23,7 +23,7 @@ def test():
 def get_user_proposals(username):
     return {'proposals':user_proposals.get(username, None)}
 
-@router.get("/experiments_for_proposal/{proposal}")
+@router.get("/experiments_in_proposal/{proposal}")
 def get_experiments_for_proposal(proposal: int):
     experiments_for_proposal = set()
     for experiment_str, times in experiments[str(proposal)].items():
@@ -36,14 +36,14 @@ def get_experiment_times(current_proposal, current_experiment):
     return experiments.get(current_proposal, None).get(current_experiment, None)
 
 #there can only be one experiment running at a time per beamline
-@router.put("/experiment/{current_proposal}/{current_experiment}")
+@router.put("/create/{current_proposal}/{current_experiment}")
 def set_experiment(current_proposal, current_experiment):
     global proposal, experiment
     if current_proposal != proposal or current_experiment != experiment: #might want a message that experiment is changing
         proposal = current_proposal
         experiment = current_experiment
 
-@router.get("/experiment") 
+@router.get("/current")
 def get_experiment():
     global proposal, experiment
     return {'proposal': proposal, 'experiment': experiment}
