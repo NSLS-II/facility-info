@@ -27,7 +27,8 @@ def test_get_experiments():
     assert len(a['experiments']) == 5
 
 def test_experiment_times():
-    response = requests.get(f'http://{HOSTNAME}:{PORT}/experiments/times/12345/1')
+    query = {'proposal_number': 12345, 'experiment_number': 1}
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/experiments/times', params=query)
     a = response.json()
     assert a['start_time'] == datetime.datetime(2020,11,1,9,0,0).isoformat('T')
     assert a['end_time'] == datetime.datetime(2020,11,2,8,59,0).isoformat('T')
