@@ -11,6 +11,11 @@ def test_user_info():
     assert a['username'] == 'jdoe'
     assert a['globus_email'] == 'jdoe@bnl.gov'
 
+def test_all_users():
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/user_info')
+    a = response.json()
+    assert a['users'] == ['jdoe']
+
 def test_user_experiments():
     response = requests.get(f'http://{HOSTNAME}:{PORT}/experiment/user_proposals/jdoe')
     a = response.json()
