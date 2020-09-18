@@ -36,12 +36,12 @@ def get_experiment_times(current_proposal, current_experiment):
     return experiments.get(current_proposal, None).get(current_experiment, None)
 
 #there can only be one experiment running at a time per beamline
-@router.put("/create/{current_proposal}/{current_experiment}")
-def set_experiment(current_proposal, current_experiment):
+@router.put("/create")
+def set_experiment(proposal_number, experiment_number):
     global proposal, experiment
-    if current_proposal != proposal or current_experiment != experiment: #might want a message that experiment is changing
-        proposal = current_proposal
-        experiment = current_experiment
+    if proposal_number != proposal or experiment_number != experiment: #might want a message that experiment is changing
+        proposal = proposal_number
+        experiment = experiment_number
 
 @router.get("/current")
 def get_experiment():

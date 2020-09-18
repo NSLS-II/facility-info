@@ -33,7 +33,8 @@ def test_experiment_times():
     assert a['end_time'] == datetime.datetime(2020,11,2,8,59,0).isoformat('T')
 
 def test_begin_experiment():
-    response = requests.put(f'http://{HOSTNAME}:{PORT}/experiments/create/13579/1')
+    query = {'proposal_number': 13579, 'experiment_number': 1}
+    response = requests.put(f'http://{HOSTNAME}:{PORT}/experiments/create', params=query)
 
 def test_end_experiment():
     response = requests.get(f'http://{HOSTNAME}:{PORT}/experiments/current')
@@ -42,7 +43,8 @@ def test_end_experiment():
     assert a['experiment'] == '1'
 
 def test_begin_experiment_again():
-    response = requests.put(f'http://{HOSTNAME}:{PORT}/experiments/create/12345/1')
+    query = {'proposal_number': 12345, 'experiment_number': 1}
+    response = requests.put(f'http://{HOSTNAME}:{PORT}/experiments/create', params=query)
 
 def test_end_experiment():
     response = requests.get(f'http://{HOSTNAME}:{PORT}/experiments/current')
