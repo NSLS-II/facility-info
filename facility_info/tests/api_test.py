@@ -8,7 +8,7 @@ PORT = 6942
 def test_all_users():
     response = requests.get(f'http://{HOSTNAME}:{PORT}/users')
     a = response.json()
-    assert a['users'] == ['jdoe']
+    assert a[0]['username'] == 'jdoe'
 
 def test_user_by_email():
     response = requests.get(f'http://{HOSTNAME}:{PORT}/users/search/jdoe@bnl.gov')

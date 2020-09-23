@@ -7,10 +7,10 @@ user_info_dict = {'jdoe':{'username': 'jdoe',
 
 @router.get("/")
 def get_all():
-    all_names = []
-    for name in user_info_dict.keys():
-        all_names.append(name)
-    return {'users':all_names}
+    all_info = []
+    for name, info in user_info_dict.items():
+        all_info.append(info)
+    return all_info
 
 @router.get("/search/{text}")
 def get_by_search(text):
