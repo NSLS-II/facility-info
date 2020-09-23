@@ -6,10 +6,8 @@ experiment = None
 
 router = APIRouter()
 
-#TODO consolidate with proposals dictionary in proposal
-proposals = {'12345':{'users':['jdoe'], 'prefix':'gu', 'full_name':'gu12345'},
-             '45678':{'users':['jdoe'], 'prefix':'gu', 'full_name':'gu45678'},
-             '78901':{'users':['jdoe'], 'prefix':'gu', 'full_name':'gu78901'}}
+from .proposal_data import proposals
+
 experiments = {'12345':{'1':{'start_time':datetime.datetime(2020,11,1,9,0,0), 'end_time':datetime.datetime(2020,11,2,8,59,0)},
                    '2':{'start_time':datetime.datetime(2020,11,2,9,0,0), 'end_time':datetime.datetime(2020,11,3,8,59,0)},
                    '3':{'start_time':datetime.datetime(2020,11,3,9,0,0), 'end_time':datetime.datetime(2020,11,4,8,59,0)},
@@ -31,7 +29,6 @@ def get_experiments_for_proposal(proposal: int):
     experiments_for_proposal = set()
     for experiment_str, times in experiments[str(proposal)].items():
         experiments_for_proposal.add(int(experiment_str))
-    print(experiments_for_proposal)
     return {'experiments': list(experiments_for_proposal)}
 
 @router.get("/times")

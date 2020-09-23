@@ -59,7 +59,7 @@ def test_get_users():
     assert a['users'] == ['jdoe']
 
 def test_get_proposals():
-    response = requests.get(f'http://{HOSTNAME}:{PORT}/proposal')
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/proposals')
     a = response.json()
     assert len(a['proposals']) == 3
 
