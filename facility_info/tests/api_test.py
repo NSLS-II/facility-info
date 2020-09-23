@@ -5,16 +5,15 @@ import json
 HOSTNAME = 'localhost'
 PORT = 6942
 
-def test_user_info():
-    response = requests.get(f'http://{HOSTNAME}:{PORT}/users/jdoe')
-    a = response.json()
-    assert a['username'] == 'jdoe'
-    assert a['globus_email'] == 'jdoe@bnl.gov'
-
 def test_all_users():
     response = requests.get(f'http://{HOSTNAME}:{PORT}/users')
     a = response.json()
     assert a['users'] == ['jdoe']
+
+def test_user_by_email():
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/users/search/jdoe@bnl.gov')
+    a = response.json()
+    assert a[0]['username'] == 'jdoe'
 
 def test_user_experiments():
     response = requests.get(f'http://{HOSTNAME}:{PORT}/experiments/user_proposals/jdoe')
