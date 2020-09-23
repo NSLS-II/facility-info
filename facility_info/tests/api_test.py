@@ -6,7 +6,7 @@ HOSTNAME = 'localhost'
 PORT = 6942
 
 def test_user_info():
-    response = requests.get(f'http://{HOSTNAME}:{PORT}/user/jdoe')
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/users/jdoe')
     a = response.json()
     assert a['username'] == 'jdoe'
     assert a['globus_email'] == 'jdoe@bnl.gov'
@@ -64,6 +64,6 @@ def test_get_proposals():
     assert len(a['proposals']) == 3
 
 def test_get_proposal():
-    response = requests.get(f'http://{HOSTNAME}:{PORT}/proposal/12345')
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/proposals/12345')
     a = response.json()
     assert a['proposal']['full_name'] == 'gu12345'
