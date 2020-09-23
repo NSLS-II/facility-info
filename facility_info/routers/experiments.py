@@ -16,10 +16,6 @@ experiments = {'12345':{'1':{'start_time':datetime.datetime(2020,11,1,9,0,0), 'e
                    #TODO fill this out for other experiments, including 45678, 78901, 13579
 user_proposals = {'jdoe':['12345','45678','78901']} #this should be derived from proposals but hard-coded for now
 
-@router.get("/")
-def test():
-    return {'test':'worked'}
-
 @router.get("/user_proposals/{username}")
 def get_user_proposals(username):
     return {'proposals':user_proposals.get(username, None)}
