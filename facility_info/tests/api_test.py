@@ -72,11 +72,21 @@ def test_current_facility():
     a = response.json()
     assert a == 'NSLS-II'
 
-def test_op_schedule():
+def test_calendar_2020_oct():
     response = requests.get(f'http://{HOSTNAME}:{PORT}/facilities/calendar/1/2020/10')
     a = response.json()
     #27th - second shift - 26*6 + 1
     assert a[157] == 'O/M'
     #31st - last shift - 31*6
     assert a[183] == 'O'
+
+def test_calendar_2020_nov():
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/facilities/calendar/1/2020/11')
+    a = response.json()
+    #6th - third shift - 5*6 + 2
+    assert a[32] == 'I'
+    #18th - 5th shift - 17*6 + 4
+    assert a[106] == 'M/S'
+    #30st - last shift - 29*6 + 5
+    assert a[179] == 'O'
 
