@@ -66,3 +66,17 @@ def test_get_proposal():
     response = requests.get(f'http://{HOSTNAME}:{PORT}/proposals/12345')
     a = response.json()
     assert a['proposal']['full_name'] == 'gu12345'
+
+def test_current_facility():
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/facilities/name')
+    a = response.json()
+    assert a == 'NSLS-II'
+
+def test_op_schedule():
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/facilities/calendar/1/2020/10')
+    a = response.json()
+    #27th - second shift - 26*6 + 1
+    assert a[157] == 'O/M'
+    #31st - last shift - 31*6
+    assert a[183] == 'O'
+

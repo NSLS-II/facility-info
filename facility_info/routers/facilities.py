@@ -17,17 +17,22 @@ for facility, shift_dict in shift_data.items():
         for short_name, item in facility_dict.items():
             if item['facility_id'] == int(facility):
                 facility_name = item['name']
-        shifts[facility_name] = {}
-        shifts[facility_name][year] = {}
+        if not shifts.get(facility_name):
+            shifts[facility_name] = {}
+        if not shifts[facility_name].get(year):
+            shifts[facility_name][year] = {}
         shifts[facility_name][year][month] = shift_data_dict['shifts']
 
 @router.get("/calendar/{facility}/{year}/{month}")
-def get_calendar(year: int, month: int):
-    return shifts[facility_dict[int(facility)]][str(year)][str(month).zfill(2)]
+def get_calendar(facility: int, year: int, month: int):
+    for facility_short_name, facility_info in facility_dict.items():
+        if facility_info['facility_id'] == facility:
+            facility_name = facility_info['name']
+    return shifts[facility_name][str(year)][str(month).zfill(2)]
 
 @router.get('/name')
 def get_facility():
-    return facility_dict.keys()[0]
+    return list(facility_dict.keys())[0]
 
 @router.get('/facility/{facilityID}/schedule')
 def get_facility_schedule(facilityID):
