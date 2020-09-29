@@ -8,13 +8,7 @@ router = APIRouter()
 
 from .proposal_data import proposals
 
-experiments = {'12345':{'1':{'start_time':datetime.datetime(2020,11,1,9,0,0), 'end_time':datetime.datetime(2020,11,2,8,59,0)},
-                   '2':{'start_time':datetime.datetime(2020,11,2,9,0,0), 'end_time':datetime.datetime(2020,11,3,8,59,0)},
-                   '3':{'start_time':datetime.datetime(2020,11,3,9,0,0), 'end_time':datetime.datetime(2020,11,4,8,59,0)},
-                   '4':{'start_time':datetime.datetime(2020,11,4,9,0,0), 'end_time':datetime.datetime(2020,11,5,8,59,0)},
-                   '5':{'start_time':datetime.datetime(2020,11,5,9,0,0), 'end_time':datetime.datetime(2020,11,6,8,59,0)}}}
-                   #TODO fill this out for other experiments, including 45678, 78901, 13579
-user_proposals = {'jdoe':['12345','45678','78901']} #this should be derived from proposals but hard-coded for now
+from .experiment_data import experiments, user_proposals
 
 @router.get("/user_proposals/{username}")
 def get_user_proposals(username):

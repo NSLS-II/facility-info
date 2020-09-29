@@ -2,8 +2,7 @@ from fastapi import APIRouter
 
 router = APIRouter()
 
-user_info_dict = {'jdoe':{'username': 'jdoe',
-    'globus_email': 'jdoe@bnl.gov'}}
+from .user_data import user_info_dict
 
 @router.get("/")
 def get_all():
