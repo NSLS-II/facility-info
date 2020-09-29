@@ -13,7 +13,7 @@ def test_all_users():
 def test_user_by_email():
     response = requests.get(f'http://{HOSTNAME}:{PORT}/users/me')
     a = response.json()
-    assert a['username'] == 'me'
+    assert a['username'] == 'it_is_me'
 
 def test_user_experiments():
     response = requests.get(f'http://{HOSTNAME}:{PORT}/experiments/user_proposals/jdoe')

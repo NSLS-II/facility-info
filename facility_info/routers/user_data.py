@@ -7,6 +7,6 @@ user_info_dict = {'jdoe':  {'userid': 1,
                             'globus_email': 'asmith@nonexistent.gov'},
 
                   'me':{'userid': 3,
-                              'username': 'me',
+                              'username': 'it_is_me',
                               'globus_email': 'itisme@nonexistent.gov'}
     }
