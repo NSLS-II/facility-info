@@ -11,9 +11,9 @@ def test_all_users():
     assert a[0]['username'] == 'jdoe'
 
 def test_user_by_email():
-    response = requests.get(f'http://{HOSTNAME}:{PORT}/users/search/jdoe@abc.com')
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/users/me')
     a = response.json()
-    assert a[0]['username'] == 'jdoe'
+    assert a['username'] == 'me'
 
 def test_user_experiments():
     response = requests.get(f'http://{HOSTNAME}:{PORT}/experiments/user_proposals/jdoe')

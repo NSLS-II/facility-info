@@ -11,7 +11,11 @@ def get_all():
         all_info.append(info)
     return all_info
 
-@router.get("/search/{text}")
+@router.get("/me")
+def get():
+    return user_info_dict['me']
+
+@router.get("/{text}")
 def get_by_search(text):
     results = []
     for user, info in user_info_dict.items():
