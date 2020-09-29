@@ -11,14 +11,14 @@ def test_all_users():
     assert a[0]['username'] == 'jdoe'
 
 def test_user_by_email():
-    response = requests.get(f'http://{HOSTNAME}:{PORT}/users/search/jdoe@bnl.gov')
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/users/search/jdoe@abc.com')
     a = response.json()
     assert a[0]['username'] == 'jdoe'
 
 def test_user_experiments():
     response = requests.get(f'http://{HOSTNAME}:{PORT}/experiments/user_proposals/jdoe')
     a = response.json()
-    assert a['proposals'][0] == '12345'
+    assert a['proposals']['12345']['proposal_id'] == 1
 
 def test_get_experiments():
     response = requests.get(f'http://{HOSTNAME}:{PORT}/experiments/experiments_in_proposal/12345')
