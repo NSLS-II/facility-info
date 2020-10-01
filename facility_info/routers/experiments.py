@@ -14,7 +14,7 @@ from .experiment_data import experiments, user_proposals
 def get_user_proposals(username):
     return {'proposals':user_proposals.get(username, None)}
 
-@router.get("/experiments_in_proposal/{proposal}")
+@router.get("/proposal/{proposal}")
 def get_experiments_for_proposal(proposal: int):
     experiments_for_proposal = set()
     for experiment_str, times in experiments[str(proposal)].items():

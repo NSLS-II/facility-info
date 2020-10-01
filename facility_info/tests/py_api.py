@@ -1,10 +1,10 @@
 import requests
+import json
 
 HOST='localhost'
 PORT=6942
 
 def get_response_or_exception(response):
-    print(response.json())
     if isinstance(response.json(), dict) and list(response.json().keys())[0]== 'detail':
         raise Exception('Failed API call')
     return response.json()
@@ -20,12 +20,15 @@ def get_user_info(username):
     return get_response_or_exception(response)
 
 def get_user_proposals(userid):
-    response = requests.get(get_base_url('proposals','byuser',str(userid)))
+    response = requests.get(get_base_url('proposals', 'user', str(userid)))
     return get_response_or_exception(response)
 
 def get_experiments_for_proposal(proposalid):
-    response = requests.get(get_base_url('experiments','byproposal',str(proposalid)))
-    return get_response_or_exception(response)
+    response = requests.get(get_base_url('experiments','proposal',str(proposalid)))
+    try:
+        return get_response_or_exception(response)
+    except json.decoder.JSONDecodeError: #proposal defined but no experiments (yet?)
+        return []
 
 def get_facility_schedule(year, month):
     response = requests.get(get_base_url('facility','schedule',str(year), two_digit_month(month)))
