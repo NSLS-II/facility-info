@@ -1,5 +1,10 @@
 # a mock-up of the expected workflow for a user attempting to collect data using a remote client
 
+# instructions:
+#    start API service with uvicorn --port 6942 facility_api.main:app
+#    set up environment - pip install -r requirements.txt
+#    python functional_test.py
+
 import datetime
 import py_api
 from user_functions import select_from_calendar, select_from_list, select_resource, check_within_experiment_time , select_experiment_from_proposals#select_plan, render, send_globus_link
