@@ -17,9 +17,10 @@ def get_user_proposals(username):
 @router.get("/proposal/{proposal}")
 def get_experiments_for_proposal(proposal: int):
     experiments_for_proposal = set()
-    for experiment_str, times in experiments[str(proposal)].items():
-        experiments_for_proposal.add(int(experiment_str))
-    return {'experiments': list(experiments_for_proposal)}
+    if experiments.has_key(str(proposal)):
+        for experiment_str, times in experiments[str(proposal)].items():
+            experiments_for_proposal.add(int(experiment_str))
+        return {'experiments': list(experiments_for_proposal)}
 
 @router.get("/times/{proposal_number}/{experiment_number}")
 def get_experiment_times(proposal_number, experiment_number):
