@@ -10,12 +10,13 @@ user_info = py_api.get_user_info(username)
 #for now assume there is only one user that matches the username substring
 user_info = user_info[0]
 user_proposals = py_api.get_user_proposals(user_info['userid'])['proposals']
-print('user proposals', user_proposals)
+print(f'user {username} has proposals {user_proposals}')
 user_proposals_experiments = {}
 for proposal in user_proposals:
     user_experiments = py_api.get_experiments_for_proposal(proposal)
-    user_proposals_experiments[str(proposal)] = user_experiments
-print('user_proposal_experiments', user_proposals_experiments)
+    if user_experiments:
+        user_proposals_experiments[str(proposal)] = user_experiments
+print(f'This user has experiments in the following user proposals: {user_proposals_experiments}')
 if use_calendar:
     current_proposal, current_experiment = select_from_calendar(datetime.datetime.now().date(), py_api.get_facility_schedule(), py_api.get_resource_calendar(), user_proposals_experiments)
 else:
@@ -25,15 +26,16 @@ expt_id = py_api.set_experiment(current_proposal, current_experiment)
 #beamline = py_api.get_beamline_from_experiment(current_proposal, current_experiment)
 #maybe for this test, use a time within the experiment
 print('Are we within the experiment time?', check_within_experiment_time(datetime.datetime.now(), py_api.get_experiment_times(current_proposal, current_experiment))) #heartbeat in applications? possibly with warnings if within x amount of time of finishing?
-#expt_id = py_api.get_current_experiment()
+#expt_id = py_api.get_current_experiment() #TODO understand why this doesn't work
 experiment = py_api.get_experiment(expt_id)
 beamline_id = experiment['beamline_id']
+beamline_info = py_api.get_beamline_info(beamline_id)
 resources = py_api.get_resources(beamline_id)
 if len(resources) > 1:
     selected_resource = select_resource(resources)
 else:
     selected_resource = resources[0]
-print('beamline:', selected_resource)
+print('beamline:', beamline_info['nickname'], 'resources:', selected_resource['name'])
 #plans = bluesky_plans.get_plans_for_resource(selected_resource) #is the resource what determines the plans?
 #selected_plan = select_plan(plans)
 #render(plan.rw_elements)

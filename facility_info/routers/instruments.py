@@ -14,9 +14,17 @@ def get_all_instruments():
         to_return.append(instrument)
     return to_return
 
-@router.get('/{nickname}')
-def get_by_nickname(nickname):
-    for instrument in instruments:
+@router.get('/nickname/{nickname}')
+def get_by_nickname(nickname: int):
+    for id_string, instrument in instruments.items():
         if instrument['nickname'] == nickname:
             return instrument
     raise ValueError('Instrument nickname not found')
+
+@router.get('/id/{instrument_id}')
+def get_by_id(instrument_id: int):
+    for id_string, instrument in instruments.items():
+        if instrument['instrument_id'] == instrument_id:
+            return instrument
+    raise ValueError('Instrument_id not found')
+

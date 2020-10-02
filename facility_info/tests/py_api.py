@@ -55,6 +55,10 @@ def get_experiment(experiment_id):
     response = requests.get(get_base_url('experiments', str(experiment_id)))
     return get_response_or_exception(response)
 
+def get_beamline_info(beamline_id):
+    response = requests.get(get_base_url('instruments', 'id', str(beamline_id)))
+    return get_response_or_exception(response)
+
 def get_resources(beamline_id):
-    response = requests.get(get_base_url('resources', str(beamline_id)))
+    response = requests.get(get_base_url('resources', 'instrument', str(beamline_id)))
     return get_response_or_exception(response)
