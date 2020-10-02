@@ -1,3 +1,5 @@
+# a mock-up of the expected workflow for a user attempting to collect data using a remote client
+
 import datetime
 import py_api
 import resource
