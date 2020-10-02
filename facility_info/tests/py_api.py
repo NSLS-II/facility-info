@@ -40,17 +40,21 @@ def get_resource_calendar(resourceid, year, month):
 
 def set_experiment(proposalid, experiment):
     response = requests.put(get_base_url('experiments', 'create', str(proposalid), str(experiment)))
+    return get_response_or_exception(response)
 
 def get_experiment_times(proposalid, experiment):
     response = requests.get(get_base_url('experiments', 'times', str(proposalid), str(experiment)))
     return get_response_or_exception(response)
 
-def get_experiment(resourceid):
-    response = requests.get(get_base_url('experiments'))
+def get_current_experiment():
+    response = requests.get(get_base_url('experiments', 'current'))
+    print(response.json())
     return get_response_or_exception(response)
 
-def get_environments(resource):
-    response = requests.get(get_base_url('environment'))
+def get_experiment(experiment_id):
+    response = requests.get(get_base_url('experiments', str(experiment_id)))
     return get_response_or_exception(response)
 
-
+def get_resources(beamline_id):
+    response = requests.get(get_base_url('resources', str(beamline_id)))
+    return get_response_or_exception(response)

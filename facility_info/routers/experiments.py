@@ -27,17 +27,28 @@ def get_experiment_times(proposal_number, experiment_number):
     return expt_info['start_time'], expt_info['end_time']
 
 #there can only be one experiment running at a time per beamline
-@router.put("/create")
+@router.put("/create/{proposal_number}/{experiment_number}") #for testing! will be different in production
 def set_experiment(proposal_number, experiment_number):
     global proposal, experiment
     if proposal_number != proposal or experiment_number != experiment: #might want a message that experiment is changing
         proposal = proposal_number
         experiment = experiment_number
+    return experiment_number
+
+@router.get('/{experiment_id}')
+def get_experiment(experiment_id: int):
+    experiment_list = []
+    for proposal, experiment_num_and_info in experiments.items():
+        for expt_num, expt_info in experiment_num_and_info.items():
+            if expt_info['experiment_id'] == experiment_id:
+                return expt_info
+    return ValueError(f'Experiment_id {experiment_id} not found')
 
 @router.get("/current")
 def get_experiment():
-    global proposal, experiment
-    return {'proposal': proposal, 'experiment': experiment}
+    global experiment
+    print('current', experiment)
+    return {'experiment_id': experiment}
 
 @router.get('/users/{proposal}')
 def get_users(proposal):
