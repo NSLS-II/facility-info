@@ -21,9 +21,10 @@ def get_experiments_for_proposal(proposal: int):
         experiments_for_proposal.add(int(experiment_str))
     return {'experiments': list(experiments_for_proposal)}
 
-@router.get("/times")
+@router.get("/times/{proposal_number}/{experiment_number}")
 def get_experiment_times(proposal_number, experiment_number):
-    return experiments[proposal_number][experiment_number]
+    expt_info = experiments[proposal_number][experiment_number]
+    return expt_info['start_time'], expt_info['end_time']
 
 #there can only be one experiment running at a time per beamline
 @router.put("/create")

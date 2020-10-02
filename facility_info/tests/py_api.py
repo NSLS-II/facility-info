@@ -38,11 +38,11 @@ def get_resource_calendar(resourceid, year, month):
     response = requests.get(get_base_url('resource',resourceid, str(year), two_digit_month(month)))
     return get_response_or_exception(response)
 
-def set_experiment(resourceid, proposalid, experiment):
-    response = requests.put(get_base_url('resource', resourceid, proposalid, experiment))
+def set_experiment(proposalid, experiment):
+    response = requests.put(get_base_url('experiments', 'create', str(proposalid), str(experiment)))
 
 def get_experiment_times(proposalid, experiment):
-    response = requests.get(get_base_url('experiments', proposalid, experiment))
+    response = requests.get(get_base_url('experiments', 'times', str(proposalid), str(experiment)))
     return get_response_or_exception(response)
 
 def get_experiment(resourceid):

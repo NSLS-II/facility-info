@@ -21,9 +21,9 @@ else:
     current_proposal, current_experiment = select_experiment_from_proposals(user_proposals_experiments)
 print('setting current proposal and experiment to', current_proposal, current_experiment)
 py_api.set_experiment(current_proposal, current_experiment)
-beamline = py_api.get_beamline_from_experiment(current_proposal, current_experiment)
+#beamline = py_api.get_beamline_from_experiment(current_proposal, current_experiment)
 #maybe for this test, use a time within the experiment
-check_within_experiment_time(datetime.datetime.now(), py_api.get_times(current_proposal, current_experiment)) #heartbeat in applications? possibly with warnings if within x amount of time of finishing?
+print('Are we within the experiment time?', check_within_experiment_time(datetime.datetime.now(), py_api.get_experiment_times(current_proposal, current_experiment))) #heartbeat in applications? possibly with warnings if within x amount of time of finishing?
 environments = resource.get_environments(beamline)
 if len(resources) > 1:
     selected_resource = select_resource(environments)

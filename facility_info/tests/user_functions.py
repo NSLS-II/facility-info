@@ -1,3 +1,5 @@
+import datetime
+
 def select_from_calendar():
     pass
 
@@ -44,8 +46,11 @@ def select_resource():
 def render():
     pass
 
-def check_within_experiment_time(current_time, experiment_start, experiment_end):
+def check_within_experiment_time(current_time, experiment_times):
+    experiment_start = datetime.datetime.strptime(experiment_times[0], '%Y-%m-%dT%H:%M:%S')
+    experiment_end = datetime.datetime.strptime(experiment_times[1], '%Y-%m-%dT%H:%M:%S')
     if experiment_start > experiment_end:
         experiment_start, experiment_end = experiment_end, experiment_start
     if current_time > experiment_end or current_time < experiment_start:
         return False
+    return True
