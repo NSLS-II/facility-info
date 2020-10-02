@@ -47,7 +47,6 @@ def get_experiment(experiment_id: int):
 @router.get("/current")
 def get_experiment():
     global experiment
-    print('current', experiment)
     return {'experiment_id': experiment}
 
 @router.get('/users/{proposal}')
