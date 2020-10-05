@@ -21,41 +21,38 @@ def test_user_experiments():
     assert a['proposals']['12345']['proposal_id'] == 1
 
 def test_get_experiments():
-    response = requests.get(f'http://{HOSTNAME}:{PORT}/experiments/experiments_in_proposal/12345')
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/experiments/proposal/12345')
     a = response.json()
     assert len(a['experiments']) == 5
 
 def test_experiment_times():
-    query = {'proposal_number': 12345, 'experiment_number': 1}
-    response = requests.get(f'http://{HOSTNAME}:{PORT}/experiments/times', params=query)
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/experiments/times/12345/1')
     a = response.json()
-    assert a['start_time'] == datetime.datetime(2020,11,1,9,0,0).isoformat('T')
-    assert a['end_time'] == datetime.datetime(2020,11,2,8,59,0).isoformat('T')
+    assert a[0] == datetime.datetime(2020,11,1,9,0,0).isoformat('T')
+    assert a[1] == datetime.datetime(2020,11,2,8,59,0).isoformat('T')
 
 def test_begin_experiment():
-    query = {'proposal_number': 13579, 'experiment_number': 1}
-    response = requests.put(f'http://{HOSTNAME}:{PORT}/experiments/create', params=query)
+    response = requests.put(f'http://{HOSTNAME}:{PORT}/experiments/create/13579/1')
 
 def test_end_experiment():
-    response = requests.get(f'http://{HOSTNAME}:{PORT}/experiments/current')
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/experiments/')
     a = response.json()
     assert a['proposal'] == '13579'
     assert a['experiment'] == '1'
 
 def test_begin_experiment_again():
-    query = {'proposal_number': 12345, 'experiment_number': 1}
-    response = requests.put(f'http://{HOSTNAME}:{PORT}/experiments/create', params=query)
+    response = requests.put(f'http://{HOSTNAME}:{PORT}/experiments/create/12345/1')
 
 def test_end_experiment():
-    response = requests.get(f'http://{HOSTNAME}:{PORT}/experiments/current')
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/experiments/')
     a = response.json()
-    assert a['proposal'] == '12345'
-    assert a['experiment'] == '1'
+    assert a['proposal_id'] == '12345'
+    assert a['experiment_id'] == '1'
 
 def test_get_users():
     response = requests.get(f'http://{HOSTNAME}:{PORT}/experiments/users/12345')
     a = response.json()
-    assert a['users'] == ['jdoe']
+    assert a['users'] == [1]
 
 def test_get_proposals():
     response = requests.get(f'http://{HOSTNAME}:{PORT}/proposals')

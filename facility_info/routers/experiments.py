@@ -17,7 +17,7 @@ def get_user_proposals(username):
 @router.get("/proposal/{proposal}")
 def get_experiments_for_proposal(proposal: int):
     experiments_for_proposal = set()
-    if experiments.has_key(str(proposal)):
+    if str(proposal) in experiments:
         for experiment_str, times in experiments[str(proposal)].items():
             experiments_for_proposal.add(int(experiment_str))
         return {'experiments': list(experiments_for_proposal)}
@@ -45,10 +45,10 @@ def get_experiment(experiment_id: int):
                 return expt_info
     return ValueError(f'Experiment_id {experiment_id} not found')
 
-@router.get("/current")
+@router.get("/")
 def get_experiment():
-    global experiment
-    return {'experiment_id': experiment}
+    global proposal, experiment
+    return {'proposal_id': proposal, 'experiment_id': experiment}
 
 @router.get('/users/{proposal}')
 def get_users(proposal):
