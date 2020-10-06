@@ -53,3 +53,9 @@ def get_experiment():
 @router.get('/users/{proposal}')
 def get_users(proposal):
     return {'users': proposals[proposal]['users']}
+
+@router.get('/authorized/{user_id}')
+def get_is_authorized(user_id: int):
+    if user_id in experiments[proposal][experiment]['users']:
+        return True
+    return False

@@ -87,3 +87,7 @@ def test_calendar_2020_nov():
     #30st - last shift - 29*6 + 5
     assert a[179] == 'O'
 
+def test_authorized():
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/experiments/authorized/1')
+    a = response.json()
+    assert a == True
