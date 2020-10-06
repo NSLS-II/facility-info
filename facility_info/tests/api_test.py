@@ -91,3 +91,49 @@ def test_authorized():
     response = requests.get(f'http://{HOSTNAME}:{PORT}/experiments/authorized/1')
     a = response.json()
     assert a == True
+
+def test_monthly_calendar():
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/facilities/calendar/1/2020/10/')
+    a = response.json()
+    assert a == ['D', 'D', 'D', 'D', 'D', 'D', #1
+                 'D', 'D', 'D', 'D', 'D', 'D',
+                 'D', 'D', 'D', 'D', 'D', 'D',
+                 'D', 'D', 'D', 'D', 'D', 'D',
+                 'D', 'D', 'D', 'D', 'D', 'D',
+                 'D', 'D', 'D', 'D', 'D', 'D',
+                 'D', 'D', 'D', 'D', 'D', 'D',
+                 'D', 'D', 'D', 'D', 'D', 'D',
+                 'D', 'D', 'D', 'D', 'D', 'D',
+                 'D', 'D', 'D', 'D', 'D', 'D', #10
+                 'D', 'D', 'D', 'D', 'D', 'D',
+                 'D', 'D', 'D', 'D', 'D', 'D',
+                 'D', 'D', 'D', 'D', 'D', 'D',
+                 'D', 'D', 'D', 'D', 'D', 'D',
+                 'D', 'D', 'D', 'D', 'D', 'D',
+                 'D', 'D', 'D', 'D', 'D', 'D',
+                 'D', 'D', 'D', 'D', 'D', 'D', #17
+                 'D', 'D', 'S', 'S', 'S', 'S',
+                 'S', 'S', 'S', 'S', 'S', 'S',
+                 'S', 'S', 'S', 'S', 'S', 'S', #20
+                 'S', 'S', 'O', 'O', 'O', 'O',
+                 'O', 'O', 'O', 'O', 'O', 'O',
+                 'O', 'O', 'O', 'O', 'O', 'O',
+                 'O', 'O', 'O', 'O', 'O', 'O',
+                 'O', 'O', 'O', 'O', 'O', 'O',
+                 'O', 'O', 'O', 'O', 'O', 'O',
+                 'O', 'O/M', 'M', 'M', 'M', 'M', #27
+                 'M', 'M', 'M', 'M', 'M/S', 'S',
+                 'S', 'S', 'O', 'O', 'O', 'O',
+                 'O', 'O', 'O', 'O', 'O', 'O', #30
+                 'O', 'O', 'O', 'O', 'O', 'O']
+
+
+def test_daily_calendar():
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/facilities/calendar/1/2020/10/29')
+    a = response.json()
+    assert a == ['S', 'S', 'O', 'O', 'O', 'O']
+
+def test_shift_calendar():
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/facilities/calendar/1/2020/10/29/2')
+    a = response.json()
+    assert a == 'S'

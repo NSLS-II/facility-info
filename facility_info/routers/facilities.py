@@ -30,6 +30,16 @@ def get_calendar(facility: int, year: int, month: int):
             facility_name = facility_info['name']
     return shifts[facility_name][str(year)][str(month).zfill(2)]
 
+@router.get("/calendar/{facility}/{year}/{month}/{day}")
+def get_daily_calendar(facility: int, year: int, month: int, day: int):
+    monthly_calendar = get_calendar(facility, year, month)
+    return monthly_calendar[6 * (day - 1): 6 * day]
+
+@router.get("/calendar/{facility}/{year}/{month}/{day}/{shift}")
+def get_shift_calendar(facility: int, year: int, month: int, day: int, shift: int):
+    daily_calendar = get_daily_calendar(facility, year, month, day)
+    return daily_calendar[shift-1]
+
 @router.get('/name')
 def get_facility():
     return list(facility_dict.keys())[0]
