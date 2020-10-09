@@ -8,42 +8,54 @@ router = APIRouter()
 
 from .proposal_data import proposals
 
-experiments = {'12345':{'1':{'start_time':datetime.datetime(2020,11,1,9,0,0), 'end_time':datetime.datetime(2020,11,2,8,59,0)},
-                   '2':{'start_time':datetime.datetime(2020,11,2,9,0,0), 'end_time':datetime.datetime(2020,11,3,8,59,0)},
-                   '3':{'start_time':datetime.datetime(2020,11,3,9,0,0), 'end_time':datetime.datetime(2020,11,4,8,59,0)},
-                   '4':{'start_time':datetime.datetime(2020,11,4,9,0,0), 'end_time':datetime.datetime(2020,11,5,8,59,0)},
-                   '5':{'start_time':datetime.datetime(2020,11,5,9,0,0), 'end_time':datetime.datetime(2020,11,6,8,59,0)}}}
-                   #TODO fill this out for other experiments, including 45678, 78901, 13579
-user_proposals = {'jdoe':['12345','45678','78901']} #this should be derived from proposals but hard-coded for now
+from .experiment_data import experiments, user_proposals
 
 @router.get("/user_proposals/{username}")
 def get_user_proposals(username):
     return {'proposals':user_proposals.get(username, None)}
 
-@router.get("/experiments_in_proposal/{proposal}")
+@router.get("/proposal/{proposal}")
 def get_experiments_for_proposal(proposal: int):
     experiments_for_proposal = set()
-    for experiment_str, times in experiments[str(proposal)].items():
-        experiments_for_proposal.add(int(experiment_str))
-    return {'experiments': list(experiments_for_proposal)}
+    if str(proposal) in experiments:
+        for experiment_str, times in experiments[str(proposal)].items():
+            experiments_for_proposal.add(int(experiment_str))
+        return {'experiments': list(experiments_for_proposal)}
 
-@router.get("/times")
+@router.get("/times/{proposal_number}/{experiment_number}")
 def get_experiment_times(proposal_number, experiment_number):
-    return experiments[proposal_number][experiment_number]
+    expt_info = experiments[proposal_number][experiment_number]
+    return expt_info['start_time'], expt_info['end_time']
 
 #there can only be one experiment running at a time per beamline
-@router.put("/create")
+@router.put("/create/{proposal_number}/{experiment_number}") #for testing! will be different in production
 def set_experiment(proposal_number, experiment_number):
     global proposal, experiment
     if proposal_number != proposal or experiment_number != experiment: #might want a message that experiment is changing
         proposal = proposal_number
         experiment = experiment_number
+    return experiment_number
 
-@router.get("/current")
+@router.get('/{experiment_id}')
+def get_experiment(experiment_id: int):
+    experiment_list = []
+    for proposal, experiment_num_and_info in experiments.items():
+        for expt_num, expt_info in experiment_num_and_info.items():
+            if expt_info['experiment_id'] == experiment_id:
+                return expt_info
+    return ValueError(f'Experiment_id {experiment_id} not found')
+
+@router.get("/")
 def get_experiment():
     global proposal, experiment
-    return {'proposal': proposal, 'experiment': experiment}
+    return {'proposal_id': proposal, 'experiment_id': experiment}
 
 @router.get('/users/{proposal}')
 def get_users(proposal):
     return {'users': proposals[proposal]['users']}
+
+@router.get('/authorized/{user_id}')
+def get_is_authorized(user_id: int):
+    if user_id in experiments[proposal][experiment]['users']:
+        return True
+    return False
