@@ -15,6 +15,12 @@ def get_all():
 def get():
     return user_info_dict['me']
 
+@router.get("/username/{username}")
+def get_by_username(username):
+    for user, info in user_info_dict.items():
+        if info['username'] == username:
+            return info
+
 @router.get("/{text}")
 def get_by_search(text):
     results = []
