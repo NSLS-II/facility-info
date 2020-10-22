@@ -1,7 +1,7 @@
 # a mock-up of the expected workflow for a user attempting to collect data using a remote client
 
 # instructions:
-#    start API service with uvicorn --port 6942 facility_api.main:app
+#    start API service with uvicorn --port 6943 facility_api.main:app
 #    set up environment - pip install -r requirements.txt
 #    python functional_test.py
 

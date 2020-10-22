@@ -14,6 +14,11 @@ Python package for getting information from facility APIs.
 * Free software: 3-clause BSD license
 * Documentation: (COMING SOON!) https://JunAishima.github.io/facility_info.
 
+How to start it up
+------------------
+
+    uvicorn --port 6943 facility_info.main:app
+
 Features
 --------
 

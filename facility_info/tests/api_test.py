@@ -3,7 +3,7 @@ import datetime
 import json
 
 HOSTNAME = 'localhost'
-PORT = 6942
+PORT = 6943
 
 def test_all_users():
     response = requests.get(f'http://{HOSTNAME}:{PORT}/users')
