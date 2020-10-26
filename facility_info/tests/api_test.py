@@ -10,8 +10,19 @@ def test_all_users():
     a = response.json()
     assert a[0]['username'] == 'jdoe'
 
-def test_user_by_email():
+def test_user_me():
     response = requests.get(f'http://{HOSTNAME}:{PORT}/users/me')
+    a = response.json()
+    print(a)
+    assert a['username'] == 'it_is_me'
+
+def test_user_by_email():
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/users/email/asmith@nonexistent.gov')
+    a = response.json()
+    assert a['username'] == 'asmith'
+
+def test_user_by_email():
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/users/orcid/', params={'orcid':'https://orcid.org/0000-0002-1694-233X'})
     a = response.json()
     assert a['username'] == 'it_is_me'
 
