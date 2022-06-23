@@ -1,7 +1,7 @@
 import datetime
 
-experiments = {'12345':{'1':{'proposal_id':1, 'proposal_number':1, 'start_time':datetime.datetime(2020,11,1,9,0,0), 'end_time':datetime.datetime(2020,11,2,8,59,0), 'users':[1, 2, 3], 'beamline_id':2, 'experiment_id':1, 'resource_id':1},
-                   '2':{'proposal_id':1, 'proposal_number':2, 'start_time':datetime.datetime(2020,11,2,9,0,0), 'end_time':datetime.datetime(2020,11,3,8,59,0), 'users':[1], 'beamline_id':1, 'experiment_id':2, 'resource_id':2},
+experiments = {'12345':{'1':{'proposal_id':1, 'proposal_number':1, 'start_time':datetime.datetime(2020,11,1,9,0,0), 'end_time':datetime.datetime(2020,11,2,8,59,0), 'users':[1, 2, 3], 'beamline_id':2, 'experiment_id':1, 'resource_id':1, 'saf_id':2},
+                   '2':{'proposal_id':1, 'proposal_number':2, 'start_time':datetime.datetime(2020,11,2,9,0,0), 'end_time':datetime.datetime(2020,11,3,8,59,0), 'users':[1], 'beamline_id':1, 'experiment_id':2, 'resource_id':2, 'saf_id':1},
                    '3':{'proposal_id':1, 'proposal_number':3, 'start_time':datetime.datetime(2020,11,3,9,0,0), 'end_time':datetime.datetime(2020,11,4,8,59,0), 'users':[1, 2], 'beamline_id':2, 'experiment_id':3, 'resource_id':1},
                    '4':{'proposal_id':1, 'proposal_number':4, 'start_time':datetime.datetime(2020,11,4,9,0,0), 'end_time':datetime.datetime(2020,11,5,8,59,0), 'users':[1,3], 'beamline_id':1, 'experiment_id':4, 'resource_id':2},
                    '5':{'proposal_id':1, 'proposal_number':5, 'start_time':datetime.datetime(2020,11,5,9,0,0), 'end_time':datetime.datetime(2020,11,6,8,59,0), 'users':[1], 'beamline_id':2, 'experiment_id':5, 'resource_id':1}}}

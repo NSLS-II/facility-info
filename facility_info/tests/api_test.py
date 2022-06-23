@@ -148,3 +148,15 @@ def test_shift_calendar():
     response = requests.get(f'http://{HOSTNAME}:{PORT}/facilities/calendar/1/2020/10/29/2')
     a = response.json()
     assert a == 'S'
+
+def test_saf1():
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/safs/1')
+    a = response.json()
+    assert a['experiment_id'] == 2
+    assert a['items'][0]['name'] == 'Tris buffer'
+
+def test_saf2():
+    response = requests.get(f'http://{HOSTNAME}:{PORT}/safs/experiment/1')
+    a = response.json()
+    assert a['items'][0]['name'] == 'Trypsin crystals'
+    assert a['saf_id'] == 2
